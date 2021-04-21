@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demo de Tailwind</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+
+    <header>
+        <div class="relative overflow-hidden bg-white">
+            <div class="mx-auto">
+              <div class="relative z-10 pb-8 bg-white ">
+                
+                <div class="relative px-4 pt-6 sm:px-6 lg:px-8">
+                  <nav class="relative flex items-center justify-between sm:h-10 " aria-label="Global">
+                    <div class="flex items-center">
+                      <div class="flex items-center justify-between w-full md:w-auto">
+                        <p>
+                          <span class="sr-only">Workflow</span>
+                          <img class="w-auto h-8 sm:h-10" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg">
+                        </p>
+                      </div>
+                    </div>
+                    <div class="date">
+                        <p id="current-date" class="font-medium text-gray-500">la fecha de hoy</p>
+                    </div>
+                  </nav>
+                </div>
+    </header>
+
+    
+    <section class="word">
+        <div class="max-w-md px-8 py-4 my-20 bg-white rounded-lg shadow-lg">
+            <div class="flex justify-center -mt-16 md:justify-end">
+            </div>
+            <div>
+              <h2 class="text-3xl font-semibold text-gray-800">Word</h2>
+              <p><i>verb</i></p>
+              <p class="mt-2 text-gray-600">definition... Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae dolores deserunt ea doloremque natus error, rerum quas odio quaerat nam ex commodi hic, suscipit in a veritatis pariatur minus consequuntur!</p>
+            </div>
+            <div class="flex justify-end mt-4">
+              <a href="#" class="text-xl font-medium text-blue-500"><i class="fas fa-volume-up"></i></a>
+            </div>
+          </div>
+    </section>
+
+    <section class="buttons">
+        <div class="flex items-center justify-center">
+            <div class="flex flex-col m-5 transition duration-300 ease-in-out border rounded card hover:shadow-sm">
+              <div class="p-4 card-body">
+                  <div class="btn-group">
+                    <button id="audio" class="px-4 py-2 font-bold text-white bg-blue-500 border-b-4 border-blue-700 rounded hover:bg-blue-400 hover:border-blue-500">
+                        <i class="fas fa-headphones-alt"></i>
+                      </button>
+                      <button id="cita" class="px-4 py-2 font-bold text-white bg-blue-500 border-b-4 border-blue-700 rounded hover:bg-blue-400 hover:border-blue-500">
+                        <i class="fas fa-quote-right"></i> 
+                      </button>
+                  </div>
+              </div>
+            </div>
+          </div>
+        
+    </section>
+    
+    <section id="song-display" class="song-container">
+      <div
+        class="p-4 pb-6 space-y-6 bg-white rounded-tl-xl sm:rounded-t-xl sm:p-8 lg:p-4 lg:pb-6 xl:p-8 sm:space-y-8 lg:space-y-6 xl:space-y-8"
+      >
+        <div
+          class="flex items-center space-x-3.5 sm:space-x-5 lg:space-x-3.5 xl:space-x-5"
+        >
+          <img
+            id="song-cover"
+            src="./Images/full-stack-radio.485d0b2c6e3aa1cacc6b50e462cd3675.png"
+            alt=""
+            width="160"
+            height="160"
+            class="flex-none w-20 h-20 bg-gray-100 rounded-lg"
+          />
+          <div class="min-w-0 flex-auto space-y-0.5">
+            <p
+              class="text-sm font-semibold uppercase text-lime-600 sm:text-base lg:text-sm xl:text-base"
+            ></p>
+            <h2
+              id="Song-name"
+              class="text-base font-semibold text-black truncate sm:text-xl lg:text-base xl:text-xl"
+            >
+              Scaling CSS at Heroku with Utility Classes
+            </h2>
+            <p
+              id="artist"
+              class="text-base font-medium text-gray-500 sm:text-lg lg:text-base xl:text-lg"
+            >
+              Full Stack Radio
+            </p>
+            <button type="button" class="object-center mx-auto button-play">
+                <i class="fas fa-play-circle"></i>
+              </button>
+      
+          </div>
+        </div>
+        <div class="space-y-2">
+          <div class="overflow-hidden bg-gray-200 rounded-full">
+            <div
+              class="bg-lime-500 w-1/2 h-1.5"
+              role="progressbar"
+              aria-valuenow="1456"
+              aria-valuemin="0"
+              aria-valuemax="4550"
+            ></div>
+          </div>
+          <div
+            class="flex justify-between text-sm font-medium text-gray-500 tabular-nums"
+          >
+            <div id="actual-time-song">2:16</div>
+            <div id="time-left-song">3:50</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+ 
+
+    <section id="quote-display" class="word">
+        <figure class="max-w-md p-8 px-8 py-4 my-20 bg-gray-100 rounded-lg rounded-xl">
+            <div class="pt-6 space-y-4 text-center">
+              <blockquote>
+                <p class="text-lg font-semibold">
+                  “gbyrtbgiufndfiuybfindbyufghinjbh
+                  viuifnefvnufepwuvnfuve
+                  feiwbhvbebbefhjbjdbhjdbhv”
+                </p>
+              </blockquote>
+              <figcaption class="font-medium">
+                <div class="text-gray-500">
+                 - Sarah Dayan
+                </div>
+              </figcaption>
+            </div>
+          </figure>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+    <script src="./assets/java/javascript.js"></script>
+    
+  </body>
+</html>
