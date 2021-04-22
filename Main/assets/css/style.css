@@ -29,3 +29,52 @@ header{
     font-size: 35px;
 }
 
+#search-engine{
+    padding:  0px 70px 0px 70px;
+}
+
+#find-another{
+    background-color: #1F2937;
+    float: right;
+    margin: 0px 50px 0px 0px;
+}
+
+#song-cover{
+    height: 200px;
+    width: 200px;
+    display:block;
+    margin:auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+#play-i{
+    font-size: 70px;
+    margin: 15px;
+}
+
+.container1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+  
+}
+
+.content{
+    background: linear-gradient(to bottom, #65beb7, #020504);
+    padding: 25px;
+    height: 470px;
+    width: 350px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
