@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demo de Tailwind</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+
+    <style>@import url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);</style>
+<style>
+    .min-w-80 {
+        min-width: 20rem;
+    }
+    .resize::-webkit-resizer,
+    .resize-x::-webkit-resizer,
+    .resize-y::-webkit-resizer {
+        background-color: transparent;
+    }
+    .resize:after,
+    .resize-x:after,
+    .resize-y:after {
+        display: block;
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        width: 24px;
+        height: 24px;
+        content: '\F045D';
+        font: normal normal normal 24px/1 "Material Design Icons";
+        font-size: 24px;
+        text-rendering: auto;
+        line-height: 24px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: rgba(0,0,0,0.3);
+    }
+</style>
+
+    <section class="word">
+      <div class="max-w-md px-8 py-4 my-20 bg-white rounded-lg shadow-lg">
+          <div class="flex justify-center -mt-16 md:justify-end">
+          </div>
+          <div>
+            <h2 class="text-3xl font-semibold text-gray-800" id="random">Random</h2>
+          </div>
+          <div class="flex justify-end mt-4">
+            <button id="fetch-word" href="#" class="text-xl font-medium text-blue-500"><i class="fas fa-random"></i></button>
+          </div>
+        </div>
+  </section>
+
+    <section class="word">
+      <div class="max-w-md px-8 py-4 my-20 bg-white rounded-lg shadow-lg">
+          <div class="flex justify-center -mt-16 md:justify-end">
+          </div>
+          <div>
+            <h2 class="text-3xl font-semibold text-gray-800">Word</h2>
+            <p><i>verb</i></p>
+            <p class="mt-2 text-gray-600">definition... Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae dolores deserunt ea doloremque natus error, rerum quas odio quaerat nam ex commodi hic, suscipit in a veritatis pariatur minus consequuntur!</p>
+          </div>
+          <div class="flex justify-end mt-4">
+            <a href="#" class="text-xl font-medium text-blue-500"><i class="fas fa-volume-up"></i></a>
+          </div>
+        </div>
+  </section>
+ 
+
+    <section class="buttons">
+        <div class="flex items-center justify-center">
+            <div class="flex flex-col m-5 transition duration-300 ease-in-out border rounded card hover:shadow-sm">
+              <div class="p-4 card-body">
+                  <div class="btn-group">
+                    <button id="audio" class="px-4 py-2 font-bold text-white bg-blue-500 border-b-4 border-blue-700 rounded hover:bg-blue-400 hover:border-blue-500">
+                        <i class="fas fa-headphones-alt"></i>
+                      </button>
+                      <button id="cita" class="px-4 py-2 font-bold text-white bg-blue-500 border-b-4 border-blue-700 rounded hover:bg-blue-400 hover:border-blue-500">
+                        <i class="fas fa-quote-right"></i> 
+                      </button>
+<div id="search-engine" class="flex items-center justify-center min-h-screen px-5 py-5 bg-gray-800 min-w-screen">
+    <div class="relative w-full max-w-3xl p-10 mx-auto overflow-hidden text-gray-800 bg-gray-100 shadow-lg resize-x rounded-xl min-w-80" x-data="app()" x-init="generatePassword()">
+        <div class="relative mt-1">
+            <input type="text" id="word-input" class="w-full py-2 pl-3 pr-10 transition-colors border-2 border-gray-200 rounded-xl hover:border-gray-300 focus:outline-none focus:border-blue-500" placeholder="Search...">
+            <button id="search-button" class="absolute block text-xl text-center text-gray-400 transition-colors w-7 h-7 leading-0 top-2 right-2 focus:outline-none hover:text-gray-900"><i class="mdi mdi-magnify"></i></button>
+        </div>
+        <div class="absolute top-0 left-0 flex w-full h-2">
+            <div class="flex-1 h-2 bg-blue-500"></div>
+            <div class="flex-1 h-2 bg-red-500"></div>
+            <div class="flex-1 h-2 bg-yellow-500"></div>
+            <div class="flex-1 h-2 bg-blue-500"></div>
+            <div class="flex-1 h-2 bg-green-500"></div>
+            <div class="flex-1 h-2 bg-red-500"></div>
+        </div>
+    </div>
+</div>
+<main>
+
+  <header>
+    <div class="relative overflow-hidden bg-white">
+        <div class="mx-auto">
+          <div class="relative z-10 pb-8 bg-white ">
+            
+            <div class="relative px-4 pt-6 sm:px-6 lg:px-8">
+              <nav class="relative flex justify-between items-top sm:h-10 " aria-label="Global">
+                <div class="flex items-top">
+                  <div class="flex justify-between w-full items-top md:w-auto">
+                    <p>
+                      <span class="sr-only">Workflow</span>
+                      <img class="w-auto h-8 sm:h-10" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg">
+                    </p>
+                  </div>
+                </div>
+                <div class="date">
+                    <p id="current-date" class="font-medium text-gray-500">la fecha de hoy</p>
+                </div>
+              </nav>
+            </div>
+</header>
+<audio id="player" class="active" src=""></audio>
+
+<section class="word">
+    <div class="max-w-md px-8 py-4 my-20 bg-white rounded-lg shadow-lg">
+        <div class="flex justify-center -mt-16 md:justify-end">
+        </div>
+        <div>
+          <h2 class="text-3xl font-semibold text-gray-800">Word</h2>
+          <p><i>verb</i></p>
+          <p class="mt-2 text-gray-600">definition... Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae dolores deserunt ea doloremque natus error, rerum quas odio quaerat nam ex commodi hic, suscipit in a veritatis pariatur minus consequuntur!</p>
+        </div>
+        <div class="flex justify-end mt-4">
+          <a href="#" class="text-xl font-medium text-blue-500"><i class="fas fa-volume-up"></i></a>
+        </div>
+      </div>
+</section>
+
+
+
+<section class="buttons">
+    <div class="flex items-center justify-center">
+        <div class="flex flex-col m-5 transition duration-300 ease-in-out border rounded card hover:shadow-sm">
+          <div class="p-4 card-body">
+              <div class="btn-group">
+                <button id="audio" class="px-4 py-2 font-bold text-white bg-blue-500 border-b-4 border-blue-700 rounded hover:bg-blue-400 hover:border-blue-500">
+                    <i class="fas fa-headphones-alt"></i>
+                  </button>
+                  <button id="cita" class="px-4 py-2 font-bold text-white bg-blue-500 border-b-4 border-blue-700 rounded hover:bg-blue-400 hover:border-blue-500">
+                    <i class="fas fa-quote-right"></i> 
+                  </button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="word">
+      <div class="max-w-md px-8 py-4 my-20 bg-white rounded-lg shadow-lg">
+          <div class="flex justify-center -mt-16 md:justify-end">
+          </div>
+          <div>
+            <h2 class="text-3xl font-semibold text-gray-800">Song Title</h2>
+            <p><i>Artist</i></p>
+            <p class="mt-2 text-gray-600" id="lyrics"></p>
+          </div>
+          <div class="flex justify-end mt-4">
+            <button id="fetch-button" href="#" class="text-xl font-medium text-blue-500"><i class="fas fa-music"></i></button>
+          </div>
+        </div>
+  </section>
+
+<div class="container1">
+  <div class="content">
+    <img
+        id="song-cover"
+        src="./Images/full-stack-radio.485d0b2c6e3aa1cacc6b50e462cd3675.png"
+        alt=""
+        width="200"
+        height="200"
+        class="w-20 h-20 bg-gray-100 rounded-lg "
+      />
+      <div class="min-w-0 flex-auto space-y-0.5">
+        <p
+          class="text-sm font-semibold uppercase text-lime-600 sm:text-base lg:text-sm xl:text-base"
+        ></p>
+        <h2
+          id="Song-name"
+          class="text-base font-semibold text-black truncate sm:text-xl lg:text-base xl:text-xl"
+        >
+          .
+        </h2>
+        <p
+          id="artist"
+          class="text-base font-medium text-gray-500 sm:text-lg lg:text-base xl:text-lg"
+        >
+          Full Stack Radio
+        </p>
+        <button  id="play" type="button" class="object-center mx-auto button-play ">
+            <i id="play-i"class="fas fa-play-circle"></i>
+          </button>
+  </div>
+</div>
+
+
+
+
+
+<section id="quote-display" class="word">
+    <figure class="max-w-md p-8 px-8 py-4 my-20 bg-gray-100 rounded-lg rounded-xl">
+        <div class="pt-6 space-y-4 text-center">
+          <blockquote>
+            <p class="text-lg font-semibold">
+              “gbyrtbgiufndfiuybfindbyufghinjbh
+              viuifnefvnufepwuvnfuve
+              feiwbhvbebbefhjbjdbhjdbhv”
+            </p>
+          </blockquote>
+          <figcaption class="font-medium">
+            <div class="text-gray-500">
+             - Sarah Dayan
+            </div>
+          </figcaption>
+        </div>
+      </figure>
+</section>
+
+  
+</main>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script src="./assets/java/javascript.js"></script>
+    
+  </body>
+</html>
