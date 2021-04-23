@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Demo de Tailwind</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <link rel="stylesheet" href="./css/styles.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
@@ -32,21 +33,34 @@
                 </div>
     </header>
 
-    
     <section class="word">
-        <div class="max-w-md px-8 py-4 my-20 bg-white rounded-lg shadow-lg">
-            <div class="flex justify-center -mt-16 md:justify-end">
-            </div>
-            <div>
-              <h2 class="text-3xl font-semibold text-gray-800">Word</h2>
-              <p><i>verb</i></p>
-              <p class="mt-2 text-gray-600">definition... Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae dolores deserunt ea doloremque natus error, rerum quas odio quaerat nam ex commodi hic, suscipit in a veritatis pariatur minus consequuntur!</p>
-            </div>
-            <div class="flex justify-end mt-4">
-              <a href="#" class="text-xl font-medium text-blue-500"><i class="fas fa-volume-up"></i></a>
-            </div>
+      <div class="max-w-md px-8 py-4 my-20 bg-white rounded-lg shadow-lg">
+          <div class="flex justify-center -mt-16 md:justify-end">
           </div>
-    </section>
+          <div>
+            <h2 class="text-3xl font-semibold text-gray-800" id="random">Random</h2>
+          </div>
+          <div class="flex justify-end mt-4">
+            <button id="fetch-word" href="#" class="text-xl font-medium text-blue-500"><i class="fas fa-random"></i></button>
+          </div>
+        </div>
+  </section>
+
+    <section class="word">
+      <div class="max-w-md px-8 py-4 my-20 bg-white rounded-lg shadow-lg">
+          <div class="flex justify-center -mt-16 md:justify-end">
+          </div>
+          <div>
+            <h2 class="text-3xl font-semibold text-gray-800">Word</h2>
+            <p><i>verb</i></p>
+            <p class="mt-2 text-gray-600">definition... Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae dolores deserunt ea doloremque natus error, rerum quas odio quaerat nam ex commodi hic, suscipit in a veritatis pariatur minus consequuntur!</p>
+          </div>
+          <div class="flex justify-end mt-4">
+            <a href="#" class="text-xl font-medium text-blue-500"><i class="fas fa-volume-up"></i></a>
+          </div>
+        </div>
+  </section>
+ 
 
     <section class="buttons">
         <div class="flex items-center justify-center">
@@ -122,6 +136,20 @@
         </div>
       </div>
     </section>
+    <section class="word">
+      <div class="max-w-md px-8 py-4 my-20 bg-white rounded-lg shadow-lg">
+          <div class="flex justify-center -mt-16 md:justify-end">
+          </div>
+          <div>
+            <h2 class="text-3xl font-semibold text-gray-800">Song Title</h2>
+            <p><i>Artist</i></p>
+            <p class="mt-2 text-gray-600" id="lyrics"></p>
+          </div>
+          <div class="flex justify-end mt-4">
+            <button id="fetch-button" href="#" class="text-xl font-medium text-blue-500"><i class="fas fa-music"></i></button>
+          </div>
+        </div>
+  </section>
 
  
 
