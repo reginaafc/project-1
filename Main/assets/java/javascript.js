@@ -1,3 +1,5 @@
+var random;
+
 // $("main").hide();
 $("#song-display").hide();
 $("#quote-display").hide();
@@ -21,10 +23,64 @@ $("#cita").dblclick(function () {
 
 $("#current-date").text(moment().format("LL"));
 
+var fetchWord = document.getElementById('fetch-word');
+  function getRandomApi() {
+
+    
+      // fetch request gets a random word
+      var requestUrl = 'https://random-words-api.vercel.app/word';
+    
+      fetch(requestUrl) // --when you get the response to this function
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          console.log(data)
+          var random = document.getElementById("random");
+         // random.innerHTML =
+          random.innerHTML=data[0].word;
+          $("#word-text").text(data[0].word)
+          var word2 = data[0].word
+          console.log(word2);
+          localStorage.setItem("random word", word2)
+          getWord()
+        });
+        
+        
+
+
+    }
+
+
+fetchWord.addEventListener('click', getRandomApi);
+
+var fetchLyrics = document.getElementById('fetch-button');
+function getLyricsApi() {
+    // fetch request gets Lyrics for Artist + Song requested
+    var requestUrl = `https://api.lyrics.ovh/v1/${Artist}/${Song}`;
+  
+    fetch(requestUrl) // --when you get the response to this function
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data)
+        var lyrics = document.getElementById("lyrics");
+        lyrics.innerHTML = data.lyrics;
+        console.log(lyrics);
+      });
+  }
+  
+  fetchLyrics.addEventListener('click', getLyricsApi);
+
+  
+  
 
 var word;
 
 $("#search-button").click( function () {
+
+  
 
   var searchInput = $("#word-input").val();
   word = searchInput;
@@ -38,7 +94,7 @@ $.ajax({
   headers: {
     Authorization:
       "Bearer " +
-      "BQCSzDbDRoEsHbixeswvDNKTUhbXM786w-7vksto4hzp3hFMFzg5bQzLmV254_OUj3pHIDM3Fwn12LObT7Q5iW5MQ0BAFGU_8-UU4_HGanDk21DpxmhINdtDnowV0ly-w0hADDY3eK1ANego9o8lTmRCKuNl23EWAhDXhbkOXIp569E42cOaRARswGyxdb8D4d55zNnoE-ZXPA",
+      "BQCcC5PWD5acMQqvTbIDO-7G5iKPI-5LOmIcHaeM28gfv0QWNiYKr3auyOvbI0wa8N2fr3XKadBjZsUmOjnmgDqECq3r1CoiwzMdzIbeMqqs1i-c5LXey3Qb5mxEVYHEAAegVcAdApq3PNbNyowz2YRZFGMrp4qMnEkOMspDIQoYhvuoBVahTADS63jPGtzNzC2lpxgshy414A",
   },
 }).then(function (response) {
 
@@ -129,8 +185,14 @@ $.ajax({
 
 
 
-var getWord = function (worsarray) {
-  var apiUrl = 'https://lingua-robot.p.rapidapi.com/language/v1/entries/en/' + word ;
+var getWord = function () {
+  
+  localStorage.getItem("random word")
+
+ 
+
+  var apiUrl = 'https://lingua-robot.p.rapidapi.com/language/v1/entries/en/' + localStorage.getItem("random word")  ;
+  console.log(apiUrl)
 
   fetch(apiUrl,{
    method: "GET",
@@ -147,9 +209,10 @@ var getWord = function (worsarray) {
       console.log(data.entries[0].lexemes[0].senses[0].definition);
       var worddef = data.entries[0].lexemes[0].senses[0].definition;
       
-      defdisplay.textContent = worddef;  
-
-    
+      
+      $("#definition").text(worddef)
+      
+      
 
       arraypron = data.entries[0].pronunciations[0].audio.url;
       console.log(data.entries[0].pronunciations[0].audio.url);
