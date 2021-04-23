@@ -1,40 +1,32 @@
+var random;
 
-//var userFormEl = document.querySelector('#user-form');
-//var nameInputEl = document.querySelector('#username');
-var defdisplay = document.querySelector('#linguaro');
-var defpron = document.querySelector('#pronuncia');
-var arraypron;
-
-var worsarray = "unlike"
-
-
-$("main").hide();
+// $("main").hide();
 $("#song-display").hide();
 $("#quote-display").hide();
 
-$("#audio").click(function(){
-    $("#song-display").show();
+$("#audio").click(function () {
+  $("#song-display").show();
 });
 
-$("#cita").click(function(){
-    $("#quote-display").show();
-    $("#linguaro").show();
-    getWord();
+$("#cita").click(function () {
+  $("#quote-display").show();
 });
 
-$("#audio").dblclick(function(){
-    $("#song-display").hide();
+$("#audio").dblclick(function () {
+  $("#song-display").hide();
 });
 
-$("#cita").dblclick(function(){
-    $("#quote-display").hide();
-
+$("#cita").dblclick(function () {
+  $("#quote-display").hide();
 });
+
 
 $("#current-date").text(moment().format("LL"));
 
 var fetchWord = document.getElementById('fetch-word');
   function getRandomApi() {
+
+    
       // fetch request gets a random word
       var requestUrl = 'https://random-words-api.vercel.app/word';
     
@@ -47,8 +39,16 @@ var fetchWord = document.getElementById('fetch-word');
           var random = document.getElementById("random");
          // random.innerHTML =
           random.innerHTML=data[0].word;
-          console.log(random);
+          $("#word-text").text(data[0].word)
+          var word2 = data[0].word
+          console.log(word2);
+          localStorage.setItem("random word", word2)
+          getWord()
         });
+        
+        
+
+
     }
 
 
@@ -76,9 +76,16 @@ function getLyricsApi() {
   
   
 
+var word;
 
-var word = "";
-var queryURL =
+$("#search-button").click( function () {
+
+  
+
+  var searchInput = $("#word-input").val();
+  word = searchInput;
+
+ var queryURL =
   "https://api.spotify.com/v1/search?q=" + word + "&type=track&market=us";
 
 $.ajax({
@@ -87,7 +94,7 @@ $.ajax({
   headers: {
     Authorization:
       "Bearer " +
-      "BQDNGWRihBz0pxEV_EZ2tAT9D7x5PXzKr4HGTFtnQOZ4rSiyTu11ZWqSBFi3bb9XXLBBN8izpoOO9RJ0KI4PdGHncgXw9Cpf_5Pc0zKdcYsr2CFKa2O57NUgng_0qWzS0v4qH9kWT_dq_a93aMsOD_Wto7UwBxO0gqBR5bjpUOzpJnFeD2l_JBpiLgDapYfJo1KIpzoiDGeQiQ",
+      "BQCcC5PWD5acMQqvTbIDO-7G5iKPI-5LOmIcHaeM28gfv0QWNiYKr3auyOvbI0wa8N2fr3XKadBjZsUmOjnmgDqECq3r1CoiwzMdzIbeMqqs1i-c5LXey3Qb5mxEVYHEAAegVcAdApq3PNbNyowz2YRZFGMrp4qMnEkOMspDIQoYhvuoBVahTADS63jPGtzNzC2lpxgshy414A",
   },
 }).then(function (response) {
 
@@ -167,67 +174,51 @@ $.ajax({
     clientSecret : "e1e96cc264f64932ad8217368a69d1c0" // my Client Secret
   },
 }).then(function (response) {
-  console.log
   
 })
 
 
 
 
-
-//$("#pronuncia").click(function(){
- //   var audio = {};
- //   audio["walk"] = new Audio();
- //   audio["walk"].src = arraypron;
- //   audio["walk"].addEventListener('load', function () {
- //   audio["walk"].play();});
-//});
-
-
-
-var getWord = function (worsarray) {
-    var apiUrl = 'https://lingua-robot.p.rapidapi.com/language/v1/entries/en/'+ 'boat' ;
   
-    fetch(apiUrl,{
-     method: "GET",
-     headers: {
-         "x-rapidapi-key" : "dba152fef7mshbdc2b7d805cce41p1ed6d3jsn7bda9d07ce37",
-         "x-rapidapi-host" : "lingua-robot.p.rapidapi.com"
-     }
-    })
-      .then(response => response.json())
-      .then(data => {
-     
-        console.log(data);
+})
 
-        console.log(data.entries[0].lexemes[0].senses[0].definition);
-        var worddef = data.entries[0].lexemes[0].senses[0].definition;
-        
-        defdisplay.textContent = worddef;  
 
+
+var getWord = function () {
+  
+  localStorage.getItem("random word")
+
+ 
+
+  var apiUrl = 'https://lingua-robot.p.rapidapi.com/language/v1/entries/en/' + localStorage.getItem("random word")  ;
+  console.log(apiUrl)
+
+  fetch(apiUrl,{
+   method: "GET",
+   headers: {
+       "x-rapidapi-key" : "dba152fef7mshbdc2b7d805cce41p1ed6d3jsn7bda9d07ce37",
+       "x-rapidapi-host" : "lingua-robot.p.rapidapi.com"
+   }
+  })
+    .then(response => response.json())
+    .then(data => {
+   
+      console.log(data);
+
+      console.log(data.entries[0].lexemes[0].senses[0].definition);
+      var worddef = data.entries[0].lexemes[0].senses[0].definition;
+      
+      
+      $("#definition").text(worddef)
+      
       
 
-        arraypron = data.entries[0].pronunciations[0].audio.url;
-        console.log(data.entries[0].pronunciations[0].audio.url);
-         
-        //console.log(arraypron);
+      arraypron = data.entries[0].pronunciations[0].audio.url;
+      console.log(data.entries[0].pronunciations[0].audio.url);
 
-        //for (var i; i < arraypron.lenght; i++ ){
-           // audiourl = data.entries[0].pronunciations[i].audio.url;
-          //  console.log(arraypron[i].audio.url);
-           // if (audiourl === null){
-           // continue;     
-          //  }
-           //      else {
-              //       break;
-              //   }
-       // }
-        
-             
-      });   
       
-     }
-
-    // userFormEl.addEventListener('submit', formSubmitHandler);
-  
-
+           
+    });   
+    
+   }
