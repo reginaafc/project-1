@@ -33,7 +33,7 @@ $("#current-date").text(moment().format("LL"));
 
 function getRandomApi() {
   // fetch request gets a random word
-  var requestUrl = "https://random-words-api.vercel.app/word";
+  var requestUrl = "https://random-word-api.herokuapp.com/word?number=1";
 
   fetch(requestUrl) // --when you get the response to this function
     .then(function (response) {
@@ -43,11 +43,12 @@ function getRandomApi() {
       console.log(data);
       var random = document.getElementById("random");
       // random.innerHTML =
-      random.innerHTML = data[0].word;
-      $("#word-text").text(data[0].word);
-      var word2 = data[0].word;
-      // console.log(word2);
+      random.innerHTML = data;
+      $("#word-text").text(data);
+      var word2 = data;
+
       localStorage.setItem("random word", word2);
+ 
       getWord();
       getSong();
     });
@@ -90,7 +91,7 @@ function getSong() {
     headers: {
       Authorization:
         "Bearer " +
-        "BQCkz8oXK9Z6N6CpjIxFGlkCxySC1Hs034QeFHOW5Eg3pbs4gk8uA0Fpa7EB32IY0AQVtNgC1ZQv5IPgcpDS1YXUC4V64kpOfSnH0638ZM1jX1cyJ_BsfgOCi4JOkEp-qgW80UCS86sEgdWCJ4RXsZOC1oidSK404mhNK_ZorQjtOpQUB4Vq0xH4nN6GESmSC19DMZpUTZPcXSC7gu1iHjM_rt4",
+        "BQC4hm1Ny9hUaBG-lBCiuC6KeEbWlbmH2D0IrgEE6CWK8PTPUKdpaDnsEq2N3RRxQ9g1QUrtGTvJ48reJCqdwKcJPdi3e2ZXvP9l9lrUKjBKKnfB3yqERin2qK3TOuWO8UPQZ6PoFJn9gj4rvuQGB2sApKlnrpI1xlPGBKPQldJ-6N3Dc9z0SH4sY5HWo4XgA2ddZ2C_7EpwlCGtcrO2MwlcZ9T4U-vl6lUzrA",
     },
   }).then(function (response) {
     // This creates a new var with the preview audio
@@ -177,11 +178,13 @@ function getSong() {
 
 var getWord = function () {
   localStorage.getItem("random word");
+  localStorage.getItem("random def");
 
   var apiUrl =
-    "https://lingua-robot.p.rapidapi.com/language/v1/entries/en/" +
+    "https://lingua-robot.p.rapidapi.com/language/v1/entries/en/"
+     +
     localStorage.getItem("random word");
-  // console.log(apiUrl);
+  console.log(apiUrl);
 
   fetch(apiUrl, {
     method: "GET",
@@ -192,15 +195,17 @@ var getWord = function () {
   })
     .then((response) => response.json())
     .then((data) => {
-      // console.log(data);
-
-      // console.log(data.entries[0].lexemes[0].senses[0].definition);
+     
       var worddef = data.entries[0].lexemes[0].senses[0].definition;
+      var wordtyp = data.entries[0].lexemes[0].partOfSpeech;
 
+      $("#typeword").text(wordtyp);
       $("#definition").text(worddef);
-
-      arraypron = data.entries[0].pronunciations[0].audio.url;
-      // console.log(data.entries[0].pronunciations[0].audio.url);
+      console.log(data);
+      //arraypron = data.entries[0].pronunciations[0].audio.url;
+      //console.log(data.entries[0].pronunciations[0].audio.url);
+    
+     // $("#audio").href(arraypron);
     });
 };
 
