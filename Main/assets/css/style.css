@@ -73,8 +73,12 @@ header{
     background: linear-gradient(to top, #ffffff, #000000);
 }
 
-.word-section{
+#search-engine{
     background: linear-gradient(to right, #312c7a, #3c93c5);
+}
+
+.word-section{
+    background: linear-gradient(45deg, #cc3cad, #3cc5ae);
 }
 
 .definition-section{
@@ -128,4 +132,16 @@ header{
 
 button{
     outline:none;
+}
+
+.search {
+    height: 130px;
+    width: 70%;
+}
+
+
+
+#word-input {
+    width: 92%;
+    margin-right: 15px;
 }

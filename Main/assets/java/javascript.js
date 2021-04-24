@@ -1,5 +1,6 @@
 // This gets the random word, sets the starred section and runs the timer for the spotify token
-window.onload = getRandomApi(), restoreData(), getToken();
+// window.onload = getRandomApi(), restoreData(), getToken();
+window.onload = restoreData(), getToken();
 
 // This gets a new token from the SPOTIFY API
 function getToken() {
@@ -34,14 +35,37 @@ setInterval(function(){ getToken(); }, 3600000);
 // This manages the functionality between pages
 $("#lyrics").hide();
 $("#song").hide();
-$("#search-engine").hide();
+$("#definition-section").hide();
 $("#hide").show();
 $("#starred-section").hide();
+
+var input;
+$("#search-btn").click(function () {
+  if ($("#word-input").val() !== "") {
+    $("#definition-section").show();
+  $("#search-engine").hide();
+  input = $("#word-input").val()
+  localStorage.setItem("word", input)
+  var random = document.getElementById("random");
+      random.innerHTML = input;
+      $("#word-text").text(input);
+  getWord();
+  getSong();
+    
+  } else {
+    window.alert("Please enter a valid input")
+  }
+  
+});
 
 $("#audio").click(function () {
   $("#song").show();
   $("#definition-section").hide();
   $("header").hide();
+});
+
+$("#search-again").click(function () {
+  location.reload()
 });
 
 $(".fa-arrow-left").click(function () {
@@ -50,6 +74,7 @@ $(".fa-arrow-left").click(function () {
   $("header").show();
   $("#lyrics").hide();
   $("#starred-section").hide();
+  
 });
 
 $(".fa-chevron-circle-down").click(function () {
@@ -64,28 +89,28 @@ $("#saved-btn").click(function () {
 
 $("#current-date").text(moment().format("LL"));
 
-function getRandomApi() {
-  // fetch request gets a random word
-  var requestUrl = "https://random-word-api.herokuapp.com/word?number=1";
+// function getRandomApi() {
+//   // fetch request gets a random word
+//   var requestUrl = "https://random-word-api.herokuapp.com/word?number=1";
 
-  fetch(requestUrl) // --when you get the response to this function
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data);
-      var random = document.getElementById("random");
-      // random.innerHTML =
-      random.innerHTML = data;
-      $("#word-text").text(data);
-      var word2 = data;
+//   fetch(requestUrl) // --when you get the response to this function
+//     .then(function (response) {
+//       return response.json();
+//     })
+//     .then(function (data) {
+//       console.log(data);
+//       var random = document.getElementById("random");
+//       // random.innerHTML =
+//       random.innerHTML = data;
+//       $("#word-text").text(data);
+//       var word2 = data;
 
-      localStorage.setItem("random word", word2);
+//       localStorage.setItem("random word", word2);
  
-      getWord();
-      getSong();
-    });
-}
+//       getWord();
+//       getSong();
+//     });
+// }
 
 
 
@@ -118,7 +143,7 @@ function getLyricsApi() {
 // This is the SPOTIFY API section
 function getSong() {
   // This gets the random word from local storage
-  var word = localStorage.getItem("random word");
+  var word = localStorage.getItem("word");
 
   // This sets the URL for the ajax call
   var queryURL =
@@ -218,20 +243,17 @@ function getSong() {
       // console.log("si tiene track");
     }
 });
-
 }
 
 
-
-
 var getWord = function () {
-  localStorage.getItem("random word");
+  localStorage.getItem("word");
   localStorage.getItem("random def");
 
   var apiUrl =
     "https://lingua-robot.p.rapidapi.com/language/v1/entries/en/"
      +
-    localStorage.getItem("random word");
+    localStorage.getItem("word");
   console.log(apiUrl);
 
   fetch(apiUrl, {
@@ -262,11 +284,12 @@ var getWord = function () {
 var isSaved = false;
 $("#save-btn").click(function () {
   if (isSaved == false) {
-    localStorage.setItem("saved-song", localStorage.getItem("random word"));
+    localStorage.setItem("saved-song", localStorage.getItem("word"));
     $("#save-btn")[0].className = "fas fa-bookmark";
     $("#saved-words-list").prepend(
       $('<li class="li-el">').html(localStorage.getItem("saved-song"))
     );
+    $("#no-starred").remove()
     isSaved = true;
     localStorage.setItem("starred", $("#saved-words-list")[0].innerHTML);
   
