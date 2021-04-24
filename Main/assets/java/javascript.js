@@ -1,3 +1,36 @@
+// This gets the random word, sets the starred section and runs the timer for the spotify token
+window.onload = getRandomApi(), restoreData(), getToken();
+
+// This gets a new token from the SPOTIFY API
+function getToken() {
+  $.ajax({
+    type: "POST",
+    url: "https://accounts.spotify.com/api/token",        
+    headers: {
+      Authorization: 
+      "Basic " + 
+      "ZmQzMTk5MmQ5Zjk0NGFmZjlkMTEyYzI2MjEwMjRmZGM6ZTFlOTZjYzI2NGY2NDkzMmFkODIxNzM2OGE2OWQxYzA="},       
+      data: "grant_type=client_credentials",
+      
+    success:function(response)
+    {
+      newToken = response.access_token
+      localStorage.setItem("new token", newToken);
+      console.log("refresh token");
+    },
+    error : function()
+    {
+      console.log("Something went wrong refreshing the token");
+    }   
+  });
+}
+
+
+setInterval(function(){ getToken(); }, 3600000);
+
+
+
+
 // This manages the functionality between pages
 $("#lyrics").hide();
 $("#song").hide();
@@ -53,7 +86,8 @@ function getRandomApi() {
     });
 }
 
-window.onload = getRandomApi(), restoreData();
+
+
 
 var fetchLyrics = document.getElementById("fetch-button");
 function getLyricsApi() {
@@ -90,7 +124,7 @@ function getSong() {
     headers: {
       Authorization:
         "Bearer " +
-        "BQCkz8oXK9Z6N6CpjIxFGlkCxySC1Hs034QeFHOW5Eg3pbs4gk8uA0Fpa7EB32IY0AQVtNgC1ZQv5IPgcpDS1YXUC4V64kpOfSnH0638ZM1jX1cyJ_BsfgOCi4JOkEp-qgW80UCS86sEgdWCJ4RXsZOC1oidSK404mhNK_ZorQjtOpQUB4Vq0xH4nN6GESmSC19DMZpUTZPcXSC7gu1iHjM_rt4",
+        localStorage.getItem("new token"),
     },
   }).then(function (response) {
     // This creates a new var with the preview audio
@@ -137,7 +171,7 @@ function getSong() {
       $("#artist").html(response.tracks.items[1].artists[0].name);
       $("#song-cover")[0].attributes[1].nodeValue =
         response.tracks.items[1].album.images[0].url;
-    }
+    };
 
     // This makes an array with all the songs that have preview audio to avoid using songs that can't be played
     var array;
@@ -163,17 +197,12 @@ function getSong() {
     } else {
       // console.log("si tiene track");
     }
-  });
+});
 
-  // $.ajax({
-  //   url: "https://accounts.spotify.com/api/token",
-  //   method: "GET",
-  //   headers: {
-  //     clientId: "fd31992d9f944aff9d112c2621024fdc", // my Client ID
-  //     clientSecret: "e1e96cc264f64932ad8217368a69d1c0", // my Client Secret
-  //   },
-  // }).then(function (response) {});
 }
+
+
+
 
 var getWord = function () {
   localStorage.getItem("random word");

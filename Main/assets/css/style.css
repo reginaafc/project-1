@@ -132,3 +132,7 @@ header{
     top: 5px;
     left: 15px;
 }
+
+button{
+    outline:none;
+}
