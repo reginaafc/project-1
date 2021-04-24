@@ -66,7 +66,7 @@ $("#current-date").text(moment().format("LL"));
 
 function getRandomApi() {
   // fetch request gets a random word
-  var requestUrl = "https://random-words-api.vercel.app/word";
+  var requestUrl = "https://random-word-api.herokuapp.com/word?number=1";
 
   fetch(requestUrl) // --when you get the response to this function
     .then(function (response) {
@@ -76,11 +76,12 @@ function getRandomApi() {
       console.log(data);
       var random = document.getElementById("random");
       // random.innerHTML =
-      random.innerHTML = data[0].word;
-      $("#word-text").text(data[0].word);
-      var word2 = data[0].word;
-      // console.log(word2);
+      random.innerHTML = data;
+      $("#word-text").text(data);
+      var word2 = data;
+
       localStorage.setItem("random word", word2);
+ 
       getWord();
       getSong();
     });
@@ -91,8 +92,14 @@ function getRandomApi() {
 
 var fetchLyrics = document.getElementById("fetch-button");
 function getLyricsApi() {
+//get Song and Artist from LocalStorage and set them to variables to be inputs for the Lyrics API
+  var getLocalSong = localStorage.getItem("Song");
+  var getLocalArtist = localStorage.getItem("Artist");
+  console.log(getLocalSong);
+  console.log(getLocalArtist);
+
   // fetch request gets Lyrics for Artist + Song requested
-  var requestUrl = `https://api.lyrics.ovh/v1/${Artist}/${Song}`;
+  var requestUrl = `https://api.lyrics.ovh/v1/${getLocalArtist}/${getLocalSong}`;
 
   fetch(requestUrl) // --when you get the response to this function
     .then(function (response) {
@@ -124,7 +131,9 @@ function getSong() {
     headers: {
       Authorization:
         "Bearer " +
+
         localStorage.getItem("new token"),
+
     },
   }).then(function (response) {
     // This creates a new var with the preview audio
@@ -136,6 +145,17 @@ function getSong() {
     $("#artist").html(response.tracks.items[0].artists[0].name);
     $("#song-cover")[0].attributes[1].nodeValue =
       response.tracks.items[0].album.images[0].url;
+    //Set Song and Artist elements in local storage to be fetch by the lyrics API
+    var setSong = response.tracks.items[0].name; 
+    var setArtist = response.tracks.items[0].artists[0].name;
+    
+    console.log(setSong);
+    console.log(setArtist);
+
+    localStorage.setItem("Song", setSong);
+    localStorage.setItem("Artist", setArtist);
+
+    
 
     var play;
 
@@ -206,11 +226,13 @@ function getSong() {
 
 var getWord = function () {
   localStorage.getItem("random word");
+  localStorage.getItem("random def");
 
   var apiUrl =
-    "https://lingua-robot.p.rapidapi.com/language/v1/entries/en/" +
+    "https://lingua-robot.p.rapidapi.com/language/v1/entries/en/"
+     +
     localStorage.getItem("random word");
-  // console.log(apiUrl);
+  console.log(apiUrl);
 
   fetch(apiUrl, {
     method: "GET",
@@ -221,15 +243,17 @@ var getWord = function () {
   })
     .then((response) => response.json())
     .then((data) => {
-      // console.log(data);
-
-      // console.log(data.entries[0].lexemes[0].senses[0].definition);
+     
       var worddef = data.entries[0].lexemes[0].senses[0].definition;
+      var wordtyp = data.entries[0].lexemes[0].partOfSpeech;
 
+      $("#typeword").text(wordtyp);
       $("#definition").text(worddef);
-
-      arraypron = data.entries[0].pronunciations[0].audio.url;
-      // console.log(data.entries[0].pronunciations[0].audio.url);
+      console.log(data);
+      //arraypron = data.entries[0].pronunciations[0].audio.url;
+      //console.log(data.entries[0].pronunciations[0].audio.url);
+    
+     // $("#audio").href(arraypron);
     });
 };
 
