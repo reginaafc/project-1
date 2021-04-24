@@ -58,8 +58,14 @@ window.onload = getRandomApi(), restoreData();
 
 var fetchLyrics = document.getElementById("fetch-button");
 function getLyricsApi() {
+//get Song and Artist from LocalStorage and set them to variables to be inputs for the Lyrics API
+  var getLocalSong = localStorage.getItem("Song");
+  var getLocalArtist = localStorage.getItem("Artist");
+  console.log(getLocalSong);
+  console.log(getLocalArtist);
+
   // fetch request gets Lyrics for Artist + Song requested
-  var requestUrl = `https://api.lyrics.ovh/v1/${Artist}/${Song}`;
+  var requestUrl = `https://api.lyrics.ovh/v1/${getLocalArtist}/${getLocalSong}`;
 
   fetch(requestUrl) // --when you get the response to this function
     .then(function (response) {
@@ -91,7 +97,7 @@ function getSong() {
     headers: {
       Authorization:
         "Bearer " +
-        "BQC4hm1Ny9hUaBG-lBCiuC6KeEbWlbmH2D0IrgEE6CWK8PTPUKdpaDnsEq2N3RRxQ9g1QUrtGTvJ48reJCqdwKcJPdi3e2ZXvP9l9lrUKjBKKnfB3yqERin2qK3TOuWO8UPQZ6PoFJn9gj4rvuQGB2sApKlnrpI1xlPGBKPQldJ-6N3Dc9z0SH4sY5HWo4XgA2ddZ2C_7EpwlCGtcrO2MwlcZ9T4U-vl6lUzrA",
+        "BQDbP9i9OoUJypfFgXAkaRf4np9RvKHLCDgMBLWlFZDrbQNBJyiH1FNcRYDOyyVVe9ZuK44vc2ADhfnf0vfiY6sI3x1nKuPdOdzPYjEcIBD7aYtFVJEMDD0B-9lphA42Of3IT7J7puiohZAA6Anf3_PZg0nv64UMT1PylU9UNRpItbK7n2Fybr6rTCwQ0Y2h3aJC7YJr7B5d3d_cIU7UDrxEOHPWYpugMqI19w",
     },
   }).then(function (response) {
     // This creates a new var with the preview audio
@@ -103,6 +109,17 @@ function getSong() {
     $("#artist").html(response.tracks.items[0].artists[0].name);
     $("#song-cover")[0].attributes[1].nodeValue =
       response.tracks.items[0].album.images[0].url;
+    //Set Song and Artist elements in local storage to be fetch by the lyrics API
+    var setSong = response.tracks.items[0].name; 
+    var setArtist = response.tracks.items[0].artists[0].name;
+    
+    console.log(setSong);
+    console.log(setArtist);
+
+    localStorage.setItem("Song", setSong);
+    localStorage.setItem("Artist", setArtist);
+
+    
 
     var play;
 
