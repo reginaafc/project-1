@@ -33,7 +33,7 @@ $("#current-date").text(moment().format("LL"));
 
 function getRandomApi() {
   // fetch request gets a random word
-  var requestUrl = "https://random-words-api.vercel.app/word";
+  var requestUrl = "https://random-word-api.herokuapp.com/word?number=1";
 
   fetch(requestUrl) // --when you get the response to this function
     .then(function (response) {
@@ -43,11 +43,12 @@ function getRandomApi() {
       console.log(data);
       var random = document.getElementById("random");
       // random.innerHTML =
-      random.innerHTML = data[0].word;
-      $("#word-text").text(data[0].word);
-      var word2 = data[0].word;
-      // console.log(word2);
+      random.innerHTML = data;
+      $("#word-text").text(data);
+      var word2 = data;
+
       localStorage.setItem("random word", word2);
+ 
       getWord();
       getSong();
     });
@@ -194,11 +195,13 @@ function getSong() {
 
 var getWord = function () {
   localStorage.getItem("random word");
+  localStorage.getItem("random def");
 
   var apiUrl =
-    "https://lingua-robot.p.rapidapi.com/language/v1/entries/en/" +
+    "https://lingua-robot.p.rapidapi.com/language/v1/entries/en/"
+     +
     localStorage.getItem("random word");
-  // console.log(apiUrl);
+  console.log(apiUrl);
 
   fetch(apiUrl, {
     method: "GET",
@@ -209,15 +212,17 @@ var getWord = function () {
   })
     .then((response) => response.json())
     .then((data) => {
-      // console.log(data);
-
-      // console.log(data.entries[0].lexemes[0].senses[0].definition);
+     
       var worddef = data.entries[0].lexemes[0].senses[0].definition;
+      var wordtyp = data.entries[0].lexemes[0].partOfSpeech;
 
+      $("#typeword").text(wordtyp);
       $("#definition").text(worddef);
-
-      arraypron = data.entries[0].pronunciations[0].audio.url;
-      // console.log(data.entries[0].pronunciations[0].audio.url);
+      console.log(data);
+      //arraypron = data.entries[0].pronunciations[0].audio.url;
+      //console.log(data.entries[0].pronunciations[0].audio.url);
+    
+     // $("#audio").href(arraypron);
     });
 };
 
