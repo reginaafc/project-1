@@ -249,7 +249,7 @@ var getWord = function () {
     "https://lingua-robot.p.rapidapi.com/language/v1/entries/en/"
      +
     localStorage.getItem("word");
-  console.log(apiUrl);
+  console.log(apiUrl,"This should be here");
 
   fetch(apiUrl, {
     method: "GET",
