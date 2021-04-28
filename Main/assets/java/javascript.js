@@ -128,7 +128,7 @@ $("#current-date").text(moment().format("LL"));
 
 
 
-var fetchLyrics = document.getElementById("fetch-button");
+var fetchLyrics = document.getElementById("fetch-lyrics");
 function getLyricsApi() {
 //get Song and Artist from LocalStorage and set them to variables to be inputs for the Lyrics API
   var getLocalSong = localStorage.getItem("Song");
@@ -137,8 +137,7 @@ function getLyricsApi() {
   console.log(getLocalArtist);
 
   // fetch request gets Lyrics for Artist + Song requested
-  var requestUrl = `https://api.lyrics.ovh/v1/${getLocalArtist}/${getLocalSong}`;
-  console.log(requestUrl )
+  var requestUrl = "https://api.lyrics.ovh/v1/"+ getLocalArtist + "/" + getLocalSong;
 
   fetch(requestUrl) // --when you get the response to this function
     .then(function (response) {
@@ -146,13 +145,17 @@ function getLyricsApi() {
     })
     .then(function (data) {
       console.log(data);
-      var lyrics = document.getElementById("lyrics");
+      var displayLocalSong = document.getElementById("getLocalSong");
+      var displayLocalArtist = document.getElementById("getLocalArtist");
+      var lyrics = document.getElementById("lyrics-block");
+      displayLocalSong.innerHTML = getLocalSong;
+      displayLocalArtist.innerHTML = getLocalArtist;
       lyrics.innerHTML = data.lyrics;
       console.log(lyrics);
     });
 }
 
-// fetchLyrics.addEventListener("click", getLyricsApi);
+fetchLyrics.addEventListener("click", getLyricsApi);
 
 // This is the SPOTIFY API section
 function getSong() {
