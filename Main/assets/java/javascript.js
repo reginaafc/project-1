@@ -38,6 +38,57 @@ $("#hide").show();
 $("#starred-section").hide();
 $("#clear").hide()
 
+var getWord = function () {
+  localStorage.getItem("word");
+  localStorage.getItem("random def");
+
+  var apiUrl =
+    "https://lingua-robot.p.rapidapi.com/language/v1/entries/en/"
+     +
+    localStorage.getItem("word");
+  console.log(apiUrl,"This should be here");
+
+  fetch(apiUrl, {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": "dba152fef7mshbdc2b7d805cce41p1ed6d3jsn7bda9d07ce37",
+      "x-rapidapi-host": "lingua-robot.p.rapidapi.com",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+     
+      var worddef = data.entries[0].lexemes[0].senses[0].definition;
+      var wordtyp = data.entries[0].lexemes[0].partOfSpeech;
+      var wordpron = new Audio(data.entries[0].pronunciations[1].audio.url);
+      var isPlaying = false;
+
+      localStorage.setItem("definition", worddef)
+
+      $("#typeword").text(wordtyp);
+      $("#definition").text(worddef);
+      console.log(data);
+      console.log(wordpron);
+      localStorage.setItem("pronunciation", wordpron);
+      
+var play;
+    // This plays the pronunciation 
+    $("#pronunciation").click(function () {
+     
+      console.log(wordpron);
+      // Play
+      if (isPlaying == false) {
+        play = wordpron.play();
+        isPlaying = true;
+      } else if (isPlaying == true) {
+        wordpron.pause();
+        isPlaying = false;
+      }
+    });
+
+    });
+};
+
 var input;
 // This gets the val from the input in the search engine
 $("#search-btn").click(function () {
@@ -241,56 +292,7 @@ function getSong() {
 
 
 
-var getWord = function () {
-  localStorage.getItem("word");
-  localStorage.getItem("random def");
 
-  var apiUrl =
-    "https://lingua-robot.p.rapidapi.com/language/v1/entries/en/"
-     +
-    localStorage.getItem("word");
-  console.log(apiUrl,"This should be here");
-
-  fetch(apiUrl, {
-    method: "GET",
-    headers: {
-      "x-rapidapi-key": "dba152fef7mshbdc2b7d805cce41p1ed6d3jsn7bda9d07ce37",
-      "x-rapidapi-host": "lingua-robot.p.rapidapi.com",
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-     
-      var worddef = data.entries[0].lexemes[0].senses[0].definition;
-      var wordtyp = data.entries[0].lexemes[0].partOfSpeech;
-      var wordpron = new Audio(data.entries[0].pronunciations[1].audio.url);
-      var isPlaying = false;
-
-      localStorage.setItem("definition", worddef)
-
-      $("#typeword").text(wordtyp);
-      $("#definition").text(worddef);
-      console.log(data);
-      console.log(wordpron);
-      localStorage.setItem("pronunciation", wordpron);
-      
-var play;
-    // This plays the pronunciation 
-    $("#pronunciation").click(function () {
-     
-      console.log(wordpron);
-      // Play
-      if (isPlaying == false) {
-        play = wordpron.play();
-        isPlaying = true;
-      } else if (isPlaying == true) {
-        wordpron.pause();
-        isPlaying = false;
-      }
-    });
-
-    });
-};
 
 // This saves the words
 var isSaved = false;
