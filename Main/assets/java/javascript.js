@@ -289,11 +289,6 @@ function getSong() {
 });
 }
 
-
-
-
-
-
 // This saves the words
 var isSaved = false;
 $("#save-btn").click(function () {

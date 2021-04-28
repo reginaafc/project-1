@@ -26,7 +26,7 @@ header {
 }
 
 #song-cover {
-  background: transparent url(images/ajaxload.gif) center no-repeat;
+  background: transparent url("https://placekitten.com/200/300") center no-repeat;
   height: 200px;
   width: 200px;
   display: block;
