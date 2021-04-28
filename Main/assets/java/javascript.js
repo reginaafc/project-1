@@ -246,6 +246,8 @@ function getSong() {
 }
 
 
+
+
 var getWord = function () {
   localStorage.getItem("word");
   localStorage.getItem("random def");
@@ -268,14 +270,30 @@ var getWord = function () {
      
       var worddef = data.entries[0].lexemes[0].senses[0].definition;
       var wordtyp = data.entries[0].lexemes[0].partOfSpeech;
+      var wordpron = new Audio(data.entries[0].pronunciations[1].audio.url);
+      var isPlaying = false;
 
       $("#typeword").text(wordtyp);
       $("#definition").text(worddef);
       console.log(data);
-      //arraypron = data.entries[0].pronunciations[0].audio.url;
-      //console.log(data.entries[0].pronunciations[0].audio.url);
-    
-     // $("#audio").href(arraypron);
+      console.log(wordpron);
+      localStorage.setItem("pronunciation", wordpron);
+      
+var play;
+    // This plays the pronunciation 
+    $("#pronunciation").click(function () {
+     
+      console.log(wordpron);
+      // Play
+      if (isPlaying == false) {
+        play = wordpron.play();
+        isPlaying = true;
+      } else if (isPlaying == true) {
+        wordpron.pause();
+        isPlaying = false;
+      }
+    });
+
     });
 };
 
