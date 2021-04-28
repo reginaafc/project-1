@@ -26,10 +26,8 @@ function getToken() {
   });
 }
 
-
+// This refresh the token
 setInterval(function(){ getToken(); }, 3600000);
-
-
 
 
 // This manages the functionality between pages
@@ -38,13 +36,17 @@ $("#song").hide();
 $("#definition-section").hide();
 $("#hide").show();
 $("#starred-section").hide();
+$("#clear").hide()
 
 var input;
+// This gets the val from the input in the search engine
 $("#search-btn").click(function () {
+  // This avoids searching for nothing
   if ($("#word-input").val() !== "") {
     $("#definition-section").show();
   $("#search-engine").hide();
   input = $("#word-input").val()
+  // This sets the value in the local storage
   localStorage.setItem("word", input)
   var random = document.getElementById("random");
       random.innerHTML = input;
@@ -58,33 +60,44 @@ $("#search-btn").click(function () {
   
 });
 
+// This displays the song section
 $("#audio").click(function () {
   $("#song").show();
   $("#definition-section").hide();
   $("header").hide();
 });
 
+// This shows the search engine again
 $("#search-again").click(function () {
   location.reload()
 });
 
+// This displays the definition section
 $(".fa-arrow-left").click(function () {
   $("#song").hide();
   $("#definition-section").show();
   $("header").show();
   $("#lyrics").hide();
   $("#starred-section").hide();
-  
+
 });
 
+// This displays the lyrics section
 $(".fa-chevron-circle-down").click(function () {
   $("#lyrics").show();
 });
 
+// This shows the starred section
 $("#saved-btn").click(function () {
   $("#starred-section").show();
   $("#definition-section").hide();
   $("header").hide();
+  if ($("#saved-words-list")[0].childNodes.length > 3){
+    $("#clear").show()
+  } else if ($("#saved-words-list")[0].childNodes.length == 3) {
+    $("#no-starred").show()
+    $("#clear").hide()
+  }
 });
 
 $("#current-date").text(moment().format("LL"));
@@ -125,6 +138,7 @@ function getLyricsApi() {
 
   // fetch request gets Lyrics for Artist + Song requested
   var requestUrl = `https://api.lyrics.ovh/v1/${getLocalArtist}/${getLocalSong}`;
+  console.log(requestUrl )
 
   fetch(requestUrl) // --when you get the response to this function
     .then(function (response) {
@@ -200,48 +214,24 @@ function getSong() {
       }
     });
 
-    // This gets the name of the song to uppercase
-    var namesplit = response.tracks.items[0].name.toUpperCase().split(" ");
-
-    var capName = word.toUpperCase();
-
-    // This avoids using urls from songs that doesn't include the word of the day
-    if (namesplit.includes(word) || namesplit.includes(capName)) {
-      // console.log("si");
-    } else {
-      // console.log("no");
-      var song = new Audio(response.tracks.items[1].preview_url);
-
-      $("#Song-name").html(response.tracks.items[1].name);
-      $("#artist").html(response.tracks.items[1].artists[0].name);
-      $("#song-cover")[0].attributes[1].nodeValue =
-        response.tracks.items[1].album.images[0].url;
-    };
 
     // This makes an array with all the songs that have preview audio to avoid using songs that can't be played
     var array;
-    // console.log(song.src);
     if (song.src == "file:///Users/reginaa_fc/project-1/Main/null") {
       var array = [];
-
+      // This makes the array and sorts it
       for (var i = 0; i < response.tracks.items.length; i++) {
         array.push(response.tracks.items[i].preview_url + "--" + i);
         array.sort();
-        // console.log(array);
         var topval = array[0].split("--")[1];
-        // console.log(topval);
-        // console.log(response.tracks.items[topval]);
       }
-
-      // console.log("null");
+      // This changes the html
       $("#Song-name").html(response.tracks.items[topval].name);
       $("#artist").html(response.tracks.items[topval].artists[0].name);
       $("#song-cover")[0].attributes[1].nodeValue =
         response.tracks.items[topval].album.images[0].url;
       var song = new Audio(response.tracks.items[topval].preview_url);
-    } else {
-      // console.log("si tiene track");
-    }
+    } 
 });
 }
 
@@ -269,6 +259,8 @@ var getWord = function () {
       var worddef = data.entries[0].lexemes[0].senses[0].definition;
       var wordtyp = data.entries[0].lexemes[0].partOfSpeech;
 
+      localStorage.setItem("definition", worddef)
+
       $("#typeword").text(wordtyp);
       $("#definition").text(worddef);
       console.log(data);
@@ -280,26 +272,46 @@ var getWord = function () {
 };
 
 // This saves the words
-
 var isSaved = false;
 $("#save-btn").click(function () {
   if (isSaved == false) {
+    $("#clear").show()
     localStorage.setItem("saved-song", localStorage.getItem("word"));
     $("#save-btn")[0].className = "fas fa-bookmark";
+    // This appends the li elements
     $("#saved-words-list").prepend(
       $('<li class="li-el">').html(localStorage.getItem("saved-song"))
     );
-    $("#no-starred").remove()
+    $("#no-starred").hide()
     isSaved = true;
+    // This saves it in the local storage
     localStorage.setItem("starred", $("#saved-words-list")[0].innerHTML);
   
   } else if (isSaved == true) {
+    // This removes the saved
     localStorage.removeItem("starred"[0]);
     $("#save-btn")[0].className = "far fa-bookmark";
     $("#saved-words-list")[0].children[0].remove();
     localStorage.setItem("starred", $("#saved-words-list")[0].innerHTML);
     isSaved = false;
+    if ($("#saved-words-list")[0].childNodes.length == 3) {
+      $("#no-starred").show()
+      $("#clear").hide()
+      isSaved = false;
+    }
   }
+});
+console.log($("#saved-words-list")[0].childNodes.length)
+// This clears the saved section
+$("#clear").click(function () {
+  $("#no-starred").show()
+  // This clears the local storage
+  localStorage.removeItem("starred");
+  // This removes the li elements from the starred section
+  $('.li-el').remove()
+  $("#clear").hide()
+  $("#save-btn")[0].className = "far fa-bookmark";
+  isSaved = false;
 });
 
 
@@ -314,4 +326,16 @@ function restoreData() {
   }
 }
     
-
+$("#saved-words-list").on("click", "li.li-el", function (event) {
+  input= $(this).html()
+  console.log(input)
+  $("#definition-section").show();
+  $("#starred-section").hide();
+  // This sets the value in the local storage
+  localStorage.setItem("word", input)
+  var random = document.getElementById("random");
+      random.innerHTML = input;
+      $("#word-text").text(input);
+  getWord();
+  getSong();
+});
