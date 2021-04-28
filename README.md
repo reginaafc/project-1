@@ -32,4 +32,4 @@ There is also the functionality to let the user save the words into Local Storag
 ![Screen capture](./Images/Result-Lyrics.png)
 ![Screen capture](./Images/Favorites.png)
 
-[Link to website](https://reginaafc.github.io/project-1/)
+[Link to website](https://reginaafc.github.io/project-1/Main/index.html#lyrics)
