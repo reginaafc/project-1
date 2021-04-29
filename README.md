@@ -3,6 +3,8 @@
 This project was developed by:
 Regina Franco, Alfonso Núñez and Víctor Vallejo.
 
+Link to the deployed page: <https://reginaafc.github.io/amusectionary/#lyrics>
+
 The goal of our project was to: 
 * Provide the user with a search interface for a word.
 * Give the definition to that word and if available the pronunciation.
